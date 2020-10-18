@@ -1,5 +1,0 @@
-apple
-guava
-lemon
-orange
-pear

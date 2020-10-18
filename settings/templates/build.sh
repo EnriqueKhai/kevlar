@@ -1,6 +1,19 @@
 #!/bin/bash
 clear
 
+if [ $# -ne 0 ]
+then
+    # Compile.
+    g++ -o solution.exe source_code.cpp
+    mv solution.exe executables/solution.exe
+
+    # Run locally.
+    ./executables/solution.exe
+
+    read -p "Press any key to continue ..."
+    exit
+fi
+
 # Compile.
 printf "%s" "Compiling source code..."
 g++ -o solution.exe source_code.cpp

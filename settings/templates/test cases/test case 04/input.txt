@@ -1,5 +1,0 @@
-coffee
-tea
-beer
-milk
-cider

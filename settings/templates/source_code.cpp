@@ -2,18 +2,8 @@
 using namespace std;
 
 int main() {
-    vector<string> dictionary;
-
-    string word;
-    while (cin >> word) {
-        dictionary.emplace_back(word);
-    }
-
-    sort(dictionary.begin(), dictionary.end());
-
-    for(auto values: dictionary) {
-        cout << values << '\n';
-    }
-
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    
     return 0;
 }
