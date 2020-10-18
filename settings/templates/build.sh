@@ -25,6 +25,7 @@ printf "%s\n\n" " done."
 # Verify results.
 printf "%s\n" "Verifying results:"
 printf "%s\n" "------------------"
+
 for index in $(seq -f "%02g" 1 10)
 do
     if [ -d "test cases"/"test case $index" ]
@@ -32,6 +33,12 @@ do
         # If input.txt is not empty,
         if [ -s "test cases"/"test case $index"/input.txt ]
         then
+            # Trimming I/O files before evaluating results.
+            ./executables/trim.exe < "test cases"/"test case $index"/output_expected.txt > "test cases"/"test case $index"/output_expected_trimmed.txt
+            ./executables/trim.exe < "test cases"/"test case $index"/output_generated.txt > "test cases"/"test case $index"/output_generated_trimmed.txt
+            mv "test cases"/"test case $index"/output_expected_trimmed.txt "test cases"/"test case $index"/output_expected.txt
+            mv "test cases"/"test case $index"/output_generated_trimmed.txt "test cases"/"test case $index"/output_generated.txt
+
             printf "%s" "Test-Case $index: "
             diff "test cases"/"test case $index"/output_expected.txt "test cases"/"test case $index"/output_generated.txt | ./executables/check_results.exe
             printf "%s\n" ""
@@ -44,29 +51,3 @@ printf "%s\n" ""
 printf "%s" "Preparing solution..."
 cp source_code.cpp solution.txt
 printf "%s\n" " done!"
-
-# Enhancements
-
-# array test_cases[]
-
-# var index = 1;
-# for each test_case in test_cases:
-#     if input.txt is empty:
-#         continue;
-#     else:
-#         echo -n "test case $index: "
-#         diff output_expected output_generated | check_results
-#     index += 1;
-
-# Why? Code =
-# test_cases=$(ls "test cases")
-# for test_case in "${test_cases[@]}"; do
-#     printf "%s\n" "test..." "$test_case"
-# done
-# Output =
-# test...
-# test case 1
-# test case 2
-# test case 3
-
-# for NAMES in $(cat name.txt); do...
